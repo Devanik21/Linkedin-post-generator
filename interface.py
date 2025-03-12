@@ -13,10 +13,10 @@ st.markdown(
     """
     <style>
         body {
-            background-color: #6b0f87;
+            background-color: #025961;
         }
         .stTextInput>div>div>input, .stSelectbox>div>div {
-            background-color: #600e78;
+            background-color: #025961;
             border-radius: 10px;
             padding: 8px;
             font-weight: bold;
