@@ -40,7 +40,7 @@ with st.sidebar:
     api_key = st.text_input("Enter Google Gemini API Key:", type="password")
 
 # Page Header
-st.title("🚀 LinkedIn Post Generator")
+st.title(" LinkedIn Post Generator")
 st.write("Generate engaging LinkedIn posts effortlessly with AI!")
 
 # Input fields
