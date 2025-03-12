@@ -44,13 +44,22 @@ st.title("🚀 LinkedIn Post Generator")
 st.write("Generate engaging LinkedIn posts effortlessly with AI!")
 
 # Input fields
-topic = st.selectbox("📌 Select a Topic:", ["Career", "Networking", "Leadership", "Productivity", "Innovation"])
-length = st.selectbox("📏 Select Length:", ["Short", "Medium", "Long", "Very Short", "Very Long"])
-language = st.selectbox("🌍 Select Language:", ["English", "Hinglish", "Hindi", "Spanish", "French"])
-tone = st.selectbox("💭 Select Tone:", ["Professional", "Casual", "Inspirational", "Motivational", "Humorous"])
-audience = st.selectbox("👤 Target Audience:", ["Students", "Job Seekers", "Entrepreneurs", "Managers", "Developers"])
-purpose = st.selectbox("🎯 Purpose of the Post:", ["Informative", "Promotional", "Storytelling", "Personal Experience", "Industry Trends"])
-style = st.selectbox("🎨 Include Extras:", ["None", "Hashtags", "Emojis", "Both Hashtags & Emojis", "Custom Formatting"])
+topics = ["Career", "Networking", "Leadership", "Productivity", "Innovation", "Technology", "AI", "Marketing", "Sales", "Personal Development", "Finance", "Health & Wellness", "Education", "Startups", "Remote Work", "Diversity & Inclusion", "Sustainability", "Women in Tech", "Data Science", "Public Speaking", "Work-Life Balance", "Growth Hacking", "Cybersecurity", "Mental Health"]
+lengths = ["Short", "Medium", "Long", "Very Short", "Very Long", "Concise", "Elaborate", "Brief", "Extended", "Detailed", "Twitter-Style", "Engaging", "In-Depth", "Compact", "Summarized", "Expanded", "Micro", "Mini", "Maxi", "Verbose", "Comprehensive", "To-the-Point", "Rich", "Layered"]
+languages = ["English", "Hinglish", "Hindi", "Spanish", "French", "German", "Mandarin", "Portuguese", "Italian", "Russian", "Arabic", "Korean", "Japanese", "Dutch", "Swedish", "Turkish", "Hebrew", "Bengali", "Tamil", "Urdu", "Indonesian", "Greek", "Polish", "Thai"]
+tones = ["Professional", "Casual", "Inspirational", "Motivational", "Humorous", "Empathetic", "Bold", "Encouraging", "Analytical", "Optimistic", "Confident", "Direct", "Persuasive", "Engaging", "Friendly", "Warm", "Serious", "Critical", "Thoughtful", "Visionary", "Pragmatic", "Respectful", "Conversational", "Exciting"]
+audiences = ["Students", "Job Seekers", "Entrepreneurs", "Managers", "Developers", "Freelancers", "Marketers", "CXOs", "Consultants", "Researchers", "Startups", "HR Professionals", "Sales Executives", "Creatives", "Public Speakers", "Investors", "Educators", "Healthcare Professionals", "Government Officials", "Corporate Employees", "Product Managers", "UX Designers", "Finance Experts", "Influencers"]
+purposes = ["Informative", "Promotional", "Storytelling", "Personal Experience", "Industry Trends", "Educational", "Community Building", "Customer Engagement", "Motivational", "Brand Awareness", "Recruitment", "Networking", "Awareness", "Case Study", "How-To", "Tips & Tricks", "Behind-the-Scenes", "Event Promotion", "News & Updates", "Product Launch", "Market Analysis", "Opinion Piece", "Experience Sharing", "CSR Initiatives"]
+styles = ["None", "Hashtags", "Emojis", "Both Hashtags & Emojis", "Custom Formatting", "Bullet Points", "Lists", "Story Format", "Quotes", "Engagement Hooks", "Q&A Style", "Conversational", "Narrative", "Infographic-Oriented", "Tweet-Like", "Mini-Thread", "News Headline", "Interactive", "Slang-Friendly", "Puns & Wordplay", "Clickbait-Free", "Educational-Focused", "Professional Journal", "SEO-Friendly"]
+
+# Create select boxes
+topic = st.selectbox("📌 Select a Topic:", topics)
+length = st.selectbox("📏 Select Length:", lengths)
+language = st.selectbox("🌍 Select Language:", languages)
+tone = st.selectbox("💭 Select Tone:", tones)
+audience = st.selectbox("👤 Target Audience:", audiences)
+purpose = st.selectbox("🎯 Purpose of the Post:", purposes)
+style = st.selectbox("🎨 Include Extras:", styles)
 
 # Generate button
 if st.button("🎯 Generate Post"):
