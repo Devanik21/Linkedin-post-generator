@@ -23,7 +23,7 @@ st.markdown(
         }
         .stButton>button {
             background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
-            color: white;
+            color: black;
             font-weight: bold;
             border-radius: 10px;
             padding: 10px 20px;
@@ -56,7 +56,7 @@ if st.button("🎯 Generate Post"):
         try:
             # Configure API
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-1.5-flash")
+            model = genai.GenerativeModel("gemini-2.0-flash")
 
             # Create a prompt for AI
             prompt = f"Generate a {length.lower()} LinkedIn post in {language} about {title} with a professional and engaging tone."
