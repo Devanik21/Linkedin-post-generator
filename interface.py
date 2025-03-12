@@ -50,6 +50,7 @@ language = st.selectbox("🌍 Select Language:", ["English", "Hinglish", "Hindi"
 tone = st.selectbox("💭 Select Tone:", ["Professional", "Casual", "Inspirational", "Motivational", "Humorous"])
 audience = st.selectbox("👤 Target Audience:", ["Students", "Job Seekers", "Entrepreneurs", "Managers", "Developers"])
 purpose = st.selectbox("🎯 Purpose of the Post:", ["Informative", "Promotional", "Storytelling", "Personal Experience", "Industry Trends"])
+style = st.selectbox("🎨 Include Extras:", ["None", "Hashtags", "Emojis", "Both Hashtags & Emojis", "Custom Formatting"])
 
 # Generate button
 if st.button("🎯 Generate Post"):
@@ -63,7 +64,8 @@ if st.button("🎯 Generate Post"):
 
             # Create a prompt for AI
             prompt = (f"Generate a {length.lower()} LinkedIn post in {language} about {topic} with a {tone.lower()} tone, "
-                      f"targeted at {audience}. The post should be {purpose.lower()} and engaging.")
+                      f"targeted at {audience}. The post should be {purpose.lower()} and engaging. "
+                      f"Include {style.lower()} if applicable.")
 
             # Generate response
             with st.spinner("🔄 Generating your LinkedIn post..."):
