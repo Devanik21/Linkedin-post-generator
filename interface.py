@@ -22,7 +22,7 @@ st.markdown(
             font-weight: bold;
         }
         .stButton>button {
-            background: linear-gradient(to right, #12c2e9, #b59f10, #3000b3);
+            background: linear-gradient(to right, #12c2e9, #141414, #3000b3);
             color: white;
             font-weight: bold;
             border-radius: 10px;
