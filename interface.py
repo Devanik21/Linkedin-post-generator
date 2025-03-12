@@ -1,57 +1,75 @@
 import streamlit as st
-import requests
+import google.generativeai as genai
 
-def call_google_gemini_api(title, length, language, api_key):
+# Configure the Streamlit page
+st.set_page_config(
+    page_title="LinkedIn Post Generator",
+    page_icon="💼",
+    layout="wide",
+)
+
+# Custom CSS for styling
+st.markdown(
     """
-    Placeholder function to demonstrate how you might call 
-    the Google Gemini 2.0 Flash API with a POST request.
-    Replace the URL and the JSON body with whatever the actual API requires.
-    """
-    url = "https://api.google-gemini.com/flash/v2/generate"  # <-- example placeholder
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {api_key}"
-    }
-    payload = {
-        "title": title,
-        "length": length,
-        "language": language
-        # Add other parameters your API might need
-    }
-    
-    try:
-        response = requests.post(url, headers=headers, json=payload)
-        response.raise_for_status()  # Raise an error for bad status
-        data = response.json()
-        
-        # Assuming the API returns something like {"post_text": "Your generated text"}
-        return data.get("post_text", "No post text found in response.")
-    except requests.exceptions.RequestException as e:
-        return f"API request error: {e}"
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        .stTextInput>div>div>input, .stSelectbox>div>div {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 8px;
+            font-weight: bold;
+        }
+        .stButton>button {
+            background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+            padding: 10px 20px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-def main():
-    st.title("LinkedIn Post Generator (Basic)")
+# Sidebar for API Key
+with st.sidebar:
+    st.markdown("### 🔑 API Configuration")
+    api_key = st.text_input("Enter Google Gemini API Key:", type="password")
 
-    st.write("Fill out the options below and click **Generate** to create a sample LinkedIn post.")
+# Page Header
+st.title("🚀 LinkedIn Post Generator")
+st.write("Generate engaging LinkedIn posts effortlessly with AI!")
 
-    # Input fields
-    title = st.selectbox("Title", ["Career", "Networking", "Leadership", "Productivity"])
-    length = st.selectbox("Length", ["Short", "Medium", "Long"])
-    language = st.selectbox("Language", ["English", "Hinglish", "Hindi", "Spanish"])
+# Input fields
+title = st.selectbox("📌 Select a Topic:", ["Career", "Networking", "Leadership", "Productivity"])
+length = st.selectbox("📏 Select Length:", ["Short", "Medium", "Long"])
+language = st.selectbox("🌍 Select Language:", ["English", "Hinglish", "Hindi", "Spanish"])
 
-    api_key = st.text_input("Enter your Google Gemini 2.0 Flash API Key", type="password")
+# Generate button
+if st.button("🎯 Generate Post"):
+    if not api_key:
+        st.warning("⚠️ Please enter a valid Google Gemini API Key in the sidebar.")
+    else:
+        try:
+            # Configure API
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel("gemini-1.5-flash")
 
-    # Generate button
-    if st.button("Generate"):
-        if not api_key:
-            st.error("Please provide an API key.")
-        else:
-            with st.spinner("Generating your post..."):
-                # Call your (placeholder) function
-                generated_text = call_google_gemini_api(title, length, language, api_key)
-            
-            st.subheader("Generated Post")
-            st.write(generated_text)
+            # Create a prompt for AI
+            prompt = f"Generate a {length.lower()} LinkedIn post in {language} about {title} with a professional and engaging tone."
 
-if __name__ == "__main__":
-    main()
+            # Generate response
+            with st.spinner("🔄 Generating your LinkedIn post..."):
+                response = model.generate_content(prompt)
+
+            # Display result
+            st.success("✅ Generated LinkedIn Post:")
+            st.write(response.text)
+
+        except Exception as e:
+            st.error(f"❌ Error: {e}")
+            st.info("If you're having issues, try using a different model like 'gemini-1.5-pro'.")
+
