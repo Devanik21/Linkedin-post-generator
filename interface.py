@@ -44,9 +44,12 @@ st.title("🚀 LinkedIn Post Generator")
 st.write("Generate engaging LinkedIn posts effortlessly with AI!")
 
 # Input fields
-title = st.selectbox("📌 Select a Topic:", ["Career", "Networking", "Leadership", "Productivity"])
-length = st.selectbox("📏 Select Length:", ["Short", "Medium", "Long"])
-language = st.selectbox("🌍 Select Language:", ["English", "Hinglish", "Hindi", "Spanish"])
+topic = st.selectbox("📌 Select a Topic:", ["Career", "Networking", "Leadership", "Productivity", "Innovation"])
+length = st.selectbox("📏 Select Length:", ["Short", "Medium", "Long", "Very Short", "Very Long"])
+language = st.selectbox("🌍 Select Language:", ["English", "Hinglish", "Hindi", "Spanish", "French"])
+tone = st.selectbox("💭 Select Tone:", ["Professional", "Casual", "Inspirational", "Motivational", "Humorous"])
+audience = st.selectbox("👤 Target Audience:", ["Students", "Job Seekers", "Entrepreneurs", "Managers", "Developers"])
+purpose = st.selectbox("🎯 Purpose of the Post:", ["Informative", "Promotional", "Storytelling", "Personal Experience", "Industry Trends"])
 
 # Generate button
 if st.button("🎯 Generate Post"):
@@ -59,7 +62,8 @@ if st.button("🎯 Generate Post"):
             model = genai.GenerativeModel("gemini-2.0-flash")
 
             # Create a prompt for AI
-            prompt = f"Generate a {length.lower()} LinkedIn post in {language} about {title} with a professional and engaging tone."
+            prompt = (f"Generate a {length.lower()} LinkedIn post in {language} about {topic} with a {tone.lower()} tone, "
+                      f"targeted at {audience}. The post should be {purpose.lower()} and engaging.")
 
             # Generate response
             with st.spinner("🔄 Generating your LinkedIn post..."):
@@ -72,4 +76,3 @@ if st.button("🎯 Generate Post"):
         except Exception as e:
             st.error(f"❌ Error: {e}")
             st.info("If you're having issues, try using a different model like 'gemini-1.5-pro'.")
-
