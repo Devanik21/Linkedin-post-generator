@@ -1,42 +1,57 @@
 import streamlit as st
-from google import genai
+import requests
 
-# Define options
-titles = ["Career", "Technology", "Business", "Leadership", "Marketing"]
-lengths = ["Short", "Medium", "Long"]
-languages = ["English", "Hinglish", "Spanish"]
-
-length_dict = {
-    "Short": "less than 100 words",
-    "Medium": "between 100 and 200 words",
-    "Long": "more than 200 words"
-}
-
-language_dict = {
-    "English": "English",
-    "Hinglish": "a mix of Hindi and English",
-    "Spanish": "Spanish"
-}
-
-# Set up client
-client = genai.Client(
-    api_key=st.secrets["GEMINI_API_KEY"]
-)
-
-# UI
-st.title("LinkedIn Post Generator")
-
-title = st.selectbox("Title", titles)
-length = st.selectbox("Length", lengths)
-language = st.selectbox("Language", languages)
-
-if st.button("Generate"):
+def call_google_gemini_api(title, length, language, api_key):
+    """
+    Placeholder function to demonstrate how you might call 
+    the Google Gemini 2.0 Flash API with a POST request.
+    Replace the URL and the JSON body with whatever the actual API requires.
+    """
+    url = "https://api.google-gemini.com/flash/v2/generate"  # <-- example placeholder
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    payload = {
+        "title": title,
+        "length": length,
+        "language": language
+        # Add other parameters your API might need
+    }
+    
     try:
-        prompt = f"Generate a LinkedIn post about {title} in {language_dict[language]}. The post should be {length} in length, which is {length_dict[length]}. Ensure that the post is professional, insightful, and suitable for a LinkedIn audience."
-        response = client.models.generate_content(
-            model='gemini-2.0-flash',
-            contents=prompt
-        )
-        st.write(response.text)
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()  # Raise an error for bad status
+        data = response.json()
+        
+        # Assuming the API returns something like {"post_text": "Your generated text"}
+        return data.get("post_text", "No post text found in response.")
+    except requests.exceptions.RequestException as e:
+        return f"API request error: {e}"
+
+def main():
+    st.title("LinkedIn Post Generator (Basic)")
+
+    st.write("Fill out the options below and click **Generate** to create a sample LinkedIn post.")
+
+    # Input fields
+    title = st.selectbox("Title", ["Career", "Networking", "Leadership", "Productivity"])
+    length = st.selectbox("Length", ["Short", "Medium", "Long"])
+    language = st.selectbox("Language", ["English", "Hinglish", "Hindi", "Spanish"])
+
+    api_key = st.text_input("Enter your Google Gemini 2.0 Flash API Key", type="password")
+
+    # Generate button
+    if st.button("Generate"):
+        if not api_key:
+            st.error("Please provide an API key.")
+        else:
+            with st.spinner("Generating your post..."):
+                # Call your (placeholder) function
+                generated_text = call_google_gemini_api(title, length, language, api_key)
+            
+            st.subheader("Generated Post")
+            st.write(generated_text)
+
+if __name__ == "__main__":
+    main()
